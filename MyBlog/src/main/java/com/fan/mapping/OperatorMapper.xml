@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fan.dao.OperatorDAO" >
+  <resultMap id="BaseResultMap" type="com.fan.model.Operator" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="roleId" property="roleId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, password, roleId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from operator
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from operator
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fan.model.Operator" useGeneratedKeys="true" keyProperty="id">
+    insert into operator (id, name, password, roleId)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fan.model.Operator">
+    insert into operator
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="roleId != null">
+        roleId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fan.model.Operator">
+    update operator
+    <set >
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        roleId = #{roleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fan.model.Operator">
+    update operator
+    set name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      roleId = #{roleId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="select" resultMap="BaseResultMap">
+    select
+    <if test="parameters != null">
+      ${parameters}
+    </if>
+    <if test="parameters == null">
+      *
+    </if>
+    from operator
+    <if test="condition != null">
+      where ${condition}
+    </if>
+    <if test="order != null and sort != null">
+      order by ${order} ${sort}
+    </if>
+    <if test="offset != -1 and limit != -1">
+      limit #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="count" resultType="long">
+    select count(
+    <if test="isDistinct == true">
+      distinct
+    </if>
+    <if test="parameters != null">
+      ${parameters}
+    </if>
+    <if test="parameters == null">
+      *
+    </if>
+    ) from operator
+    <if test="condition != null">
+      where ${condition}
+    </if>
+  </select>
+  <select id="sum" resultType="double">
+    select sum(
+    <if test="isDistinct == true">
+      distinct
+    </if>
+    ${parameter}) from operator
+    <if test="condition != null">
+      where ${condition}
+    </if>
+    <if test="order != null and sort != null">
+      order by ${order} ${sort}
+    </if>
+    <if test="offset != -1 and limit != -1">
+      limit #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="find" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select ${parameters} from operator where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="findByAccountAndPassword" resultMap="BaseResultMap">
+    select * from operator where (name = #{account,jdbcType=VARCHAR}) and password = #{password,jdbcType=VARCHAR}
+  </select>
+</mapper>

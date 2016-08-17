@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fan.dao.ArticleDAO" >
+  <resultMap id="BaseResultMap" type="com.fan.model.Article" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="operatorId" property="operatorId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, content, time,operatorId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fan.model.Article" useGeneratedKeys="true" keyProperty="id">
+    insert into article (id, title, content, time,operatorId,abContent)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{time,jdbcType=TIMESTAMP},#{operatorId,jdbcType=INTEGER},#{abContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fan.model.Article">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="operatorId != null">
+        operatorId,
+      </if>
+      <if test="abContent != null">
+        abContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="abContent != null">
+        abContent,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fan.model.Article">
+    update article
+    <set >
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="abContent != null">
+        abContent,
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fan.model.Article">
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      abContent=#{abContent,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="select" resultMap="BaseResultMap">
+    select
+    <if test="parameters != null">
+      ${parameters}
+    </if>
+    <if test="parameters == null">
+      *
+    </if>
+    from article
+    <if test="condition != null">
+      where ${condition}
+    </if>
+    <if test="order != null and sort != null">
+      order by ${order} ${sort}
+    </if>
+    <if test="offset != -1 and limit != -1">
+      limit #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="count" resultType="long">
+    select count(
+    <if test="isDistinct == true">
+      distinct
+    </if>
+    <if test="parameters != null">
+      ${parameters}
+    </if>
+    <if test="parameters == null">
+      *
+    </if>
+    ) from article
+    <if test="condition != null">
+      where ${condition}
+    </if>
+  </select>
+  <select id="sum" resultType="double">
+    select sum(
+    <if test="isDistinct == true">
+      distinct
+    </if>
+    ${parameter}) from article
+    <if test="condition != null">
+      where ${condition}
+    </if>
+    <if test="order != null and sort != null">
+      order by ${order} ${sort}
+    </if>
+    <if test="offset != -1 and limit != -1">
+      limit #{offset,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="find" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select ${parameters} from article where id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

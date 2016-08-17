@@ -1,0 +1,86 @@
+
+body{
+	margin:0;
+	padding:0;
+	color:#666;
+}
+
+a{
+	color:#666;
+	cursor:pointer;
+}
+
+.content{
+	width:100%;
+	height:900px;
+	background:url("/MyBlog/images/homePage/backImg.jpg") center no-repeat;
+	float:left;
+	overflow-y:hidden;
+}
+.back{
+	width:100%;
+	height:100%;
+	background-color:rgba(61,66,96,0.4);
+}
+.main{
+	width:100%;
+	height:100%;
+	text-align:center;
+	padding-top:25%;
+}
+
+@media only screen and (min-width: 1200px){
+	.title{
+		color:#fff;
+		font-size:100px;
+		font-family: Geneva, Arial, Helvetica, sans-serif;
+	}
+	h2{
+		font-size:30px;
+	}
+	.page{width:62px;padding:6px 0;}
+}
+
+@media (min-width: 481px) and (max-width: 1199px){
+	.title{
+		color:#fff;
+		font-size:80px;
+		font-family: Geneva, Arial, Helvetica, sans-serif;
+	}
+	h2{
+		font-size:25px;
+	}
+	a{font-size:15px;}
+	.page{width:62px;padding:6px 0;}
+}
+
+@media (max-width: 480px){
+	.title{
+		color:#fff;
+		font-size:30px;
+		font-family: Geneva, Arial, Helvetica, sans-serif;
+	}
+	h2{
+		font-size:20px;
+	}
+	a{font-size:10px;}
+	.main{
+	height:100px;
+	}
+	.page{width:50px;padding:6px 0;}
+}
+.left{
+overflow-y:auto;
+padding-left:5%;
+
+}
+
+.btn-new{
+margin-right:10px;background-color:transparent;color:#fff;border:1px solid #fff
+}
+
+#room{
+	width:100%;
+}
+
+#hrLab{margin-top:10px;}
